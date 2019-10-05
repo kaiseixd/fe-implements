@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const OpenBrowserPlugin = require('open-browser-webpack-plugin');
 
@@ -8,6 +9,11 @@ module.exports = {
 		filename: 'bundle.js',
 		path: path.resolve(__dirname, 'dist')
 	},
+	resolve: {
+		alias: {
+			'@': path.resolve(__dirname, 'components')
+		}
+	},
 	module: {
 		rules: [
 			{
@@ -16,18 +22,23 @@ module.exports = {
 				use: {
 					loader: 'babel-loader',
 					options: {
-						presets: ["react", "env"],
-						plugins: ["@babel/plugin-proposal-decorators", "@babel/plugin-proposal-class-properties"]
+						presets: ["@babel/preset-react", "@babel/preset-env"],
+						plugins: [
+							["@babel/plugin-proposal-decorators", { legacy: true }],
+							"@babel/plugin-proposal-class-properties"
+						]
 					}
 				}
 			}
 		]
 	},
+	devtool: false,
 	plugins: [
-		new OpenBrowserPlugin({ url: 'http://localhost:2333' }),
 		new HtmlWebpackPlugin({
 			title: 'quick-start',
 			template: 'index.html',
 		}),
+		new OpenBrowserPlugin({ url: 'http://localhost:8080' }),
+		new webpack.SourceMapDevToolPlugin({})
 	]
 }
