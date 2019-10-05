@@ -19,8 +19,10 @@ class BrowserHistory {
     }
 
     replace(path, state) {
-        const { state: solvedState } = createLocation(path, state);
+        const location = createLocation(path, state);
+        const { state: solvedState } = location;
         globalHistory.replaceState(solvedState, null, path);
+        setState({ location });
     }
 
     go(n) {
