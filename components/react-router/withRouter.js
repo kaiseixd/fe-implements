@@ -1,6 +1,6 @@
 import React from 'react';
 import RouterContext from './RouterContext';
-import hoistStatics from "hoist-non-react-statics";
+import hoistStatics from 'hoist-non-react-statics';
 
 function withRouter(Component) {
     const C = props => {

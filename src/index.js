@@ -1,5 +1,6 @@
-import React from "react";
-import { BrowserRouter as Router, Route, Link } from "../components/react-router-dom";
+import React from 'react';
+import { render } from 'react-dom';
+import { BrowserRouter as Router, Route, Link } from '../components/react-router-dom';
 
 function Home() {
     return <h2>Home</h2>;
@@ -13,7 +14,7 @@ function Users() {
     return <h2>Users</h2>;
 }
 
-export default function App() {
+function App() {
     return (
         <Router>
             <div>
@@ -44,3 +45,5 @@ export default function App() {
         </Router>
     );
 }
+
+render(<App />, document.getElementById('root'));

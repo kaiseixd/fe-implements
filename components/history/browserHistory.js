@@ -1,7 +1,7 @@
-import { createLocation, getDOMLocation } from "./locationUtils";
-import { createPath } from "./pathUtils";
+import { createLocation, getDOMLocation } from './locationUtils';
+import { createPath } from './pathUtils';
 
-const listenrs = [];
+const listeners = [];
 const globalHistory = window.history;
 
 class BrowserHistory {
@@ -12,15 +12,15 @@ class BrowserHistory {
     location = getDOMLocation();
 
     push(path, state) {
-        const solvedPath = createPath(location);
-        const { state: solvedState } = createLocation(path, state);
-        globalHistory.pushState(solvedState, null, solvedPath);
+        const location = createLocation(path, state);
+        const { state: solvedState } = location;
+        globalHistory.pushState(solvedState, null, path);
+        setState({ location });
     }
 
     replace(path, state) {
-        const solvedPath = createPath(location);
         const { state: solvedState } = createLocation(path, state);
-        globalHistory.replaceState(solvedState, null, solvedPath);
+        globalHistory.replaceState(solvedState, null, path);
     }
 
     go(n) {
@@ -37,6 +37,10 @@ class BrowserHistory {
 
     listen(listener) {
         return appendListener(listener);
+    }
+
+    createHref(location) {
+        return createPath(location);
     }
 }
 
@@ -61,8 +65,13 @@ function appendListener(fn) {
 
 function handlePopState(event) {
     const location = getDOMLocation(event.state);
-    Object.assign(this.location, location)
-    listenrs.forEach(listenr => listenr(this.location));
+    Object.assign(this.location, location);
+    setState({ location: this.location });
+}
+
+function setState(newState) {
+    Object.assign(globalHistory, newState);
+    listeners.forEach(listenr => listenr(globalHistory.location));
 }
 
 export default BrowserHistory;

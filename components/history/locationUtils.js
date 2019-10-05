@@ -38,5 +38,5 @@ export function getDOMLocation(historyState) {
 
     let path = pathname + search + hash;
 
-    return createLocation(path, state, key);
+    return createLocation(path, state);
 }

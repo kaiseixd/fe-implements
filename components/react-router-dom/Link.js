@@ -64,7 +64,7 @@ const Link = forwardRef(
                             const location = resolveToLocation(to, context.location);
                             const method = replace ? history.replace : history.push;
 
-                            method(location);
+                            method.call(history, location);
                         }
                     });
                 }}
