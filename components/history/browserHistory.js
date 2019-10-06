@@ -1,7 +1,7 @@
 import { createLocation, getDOMLocation } from './locationUtils';
 import { createPath } from './pathUtils';
 
-const listeners = [];
+let listeners = [];
 const globalHistory = window.history;
 
 class BrowserHistory {
