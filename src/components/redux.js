@@ -31,7 +31,7 @@ const store = createStore(reducers, { todos: 'work', counter: 0 });
 const boundActionCreators = bindActionCreators(TestActionCreators, store.dispatch);
 
 class ReduxExp extends React.Component {
-    state = store.getState()
+    state = store.getState();
 
     componentDidMount() {
         store.subscribe(this.onChange);
