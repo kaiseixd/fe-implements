@@ -1,7 +1,7 @@
 function createUseState(savedParentThisRef) {
     let states = [];
     let setters = [];
-    let runed = [];
+    let runned = [];
     let pointer = -1;
 
     function createSetter(currentPointer) {
@@ -18,10 +18,10 @@ function createUseState(savedParentThisRef) {
 
     function useState(initial) {
         pointer++;
-        if (!runed[pointer]) {
-            states.push(initial)
-            setters.push(createSetter(pointer))
-            runed[pointer] = true;
+        if (!runned[pointer]) {
+            states.push(initial);
+            setters.push(createSetter(pointer));
+            runned[pointer] = true;
         }
         return [states[pointer], setters[pointer]];
     }
@@ -29,4 +29,4 @@ function createUseState(savedParentThisRef) {
     return useState;
 }
 
-export default createUseState
+export default createUseState;

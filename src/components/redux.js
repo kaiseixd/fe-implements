@@ -27,7 +27,7 @@ const reducers = combineReducers({
     counter
 });
 
-const store = createStore(reducers, { todos: 'work', counter: 0 });
+const store = createStore(reducers, { todos: ['work'], counter: 0 });
 const boundActionCreators = bindActionCreators(TestActionCreators, store.dispatch);
 
 class ReduxExp extends React.Component {
@@ -35,6 +35,10 @@ class ReduxExp extends React.Component {
 
     componentDidMount() {
         store.subscribe(this.onChange);
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        console.log(this.state.todos === prevState.todos, this.state);
     }
 
     onChange = () => {
@@ -55,7 +59,7 @@ class ReduxExp extends React.Component {
         const { todos, counter } = this.state;
         return (
             <div>
-                <div>todos: { todos }</div>
+                <div>todos: { todos.join(', ') }</div>
                 <div>counter: { counter }</div>
                 <button onClick={this.addTodo}>add todo</button>
                 <button onClick={this.addCounter}>add counter</button>
